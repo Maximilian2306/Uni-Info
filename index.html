@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team TH Rosenheim</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(128, 0, 255, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(5deg); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg); }
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #00c8ff, #ff0080, #8000ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 4s ease infinite;
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .uni-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(0, 200, 255, 0.1);
+            border: 1px solid rgba(0, 200, 255, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #00c8ff;
+            margin-top: 10px;
+        }
+
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+
+        .member {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 35px 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, #00c8ff, #ff0080, #8000ff);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .member:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .member:hover::before {
+            opacity: 1;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .member-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00c8ff, #ff0080);
+            transition: width 0.4s;
+        }
+
+        .member:hover .member-name::after {
+            width: 100%;
+        }
+
+        .member-email {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #00c8ff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            word-break: break-all;
+            transition: all 0.3s;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .member-email::before {
+            content: '→';
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .member-email:hover {
+            background: rgba(0, 200, 255, 0.1);
+            gap: 15px;
+        }
+
+        .member-email:hover::before {
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 15px;
+            }
+
+            header {
+                margin-bottom: 50px;
+            }
+
+            .team {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <main>
+        <header>
+            <h1>TEAM</h1>
+            <div class="uni-tag">Technische Hochschule Rosenheim</div>
+        </header>
+
+        <div class="team">
+            <div class="member">
+                <div class="member-name">Michael Angerer</div>
+                <a href="mailto:michael.angerer@stud.th-rosenheim.de" class="member-email">
+                    michael.angerer@stud.th-rosenheim.de
+                </a>
+            </div>
+
+            <div class="member">
+                <div class="member-name">Benedikt Maurer</div>
+                <a href="mailto:benedikt.maurer@stud.th-rosenheim.de" class="member-email">
+                    benedikt.maurer@stud.th-rosenheim.de
+                </a>
+            </div>
+
+            <div class="member">
+                <div class="member-name">Maximilian Hahn</div>
+                <a href="mailto:maximilian.hahn@stud.th-rosenheim.de" class="member-email">
+                    maximilian.hahn@stud.th-rosenheim.de
+                </a>
+            </div>
+
+            <div class="member">
+                <div class="member-name">Robert Koch</div>
+                <a href="mailto:robert.koch@stud.th-rosenheim.de" class="member-email">
+                    robert.koch@stud.th-rosenheim.de
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
